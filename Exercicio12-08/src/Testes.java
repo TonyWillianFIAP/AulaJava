@@ -18,14 +18,19 @@ public class Testes {
         List<Pessoa> pessoasSemDuplicados = PessoaLimpa.removerDuplicados(pessoas);
 
         // Criando e imprimindo mapa de pessoas
-        PessoaLista PessoaLista = new PessoaLista();
+        PessoaLista pessoaLista = new PessoaLista();
         Pessoa pessoaMapa = new Pessoa("Maria", "321654987", 28);
-        PessoaLista.adicionarEImprimirPessoa(pessoaMapa);
+        pessoaLista.adicionarEImprimirPessoa(pessoaMapa);
+
+        // Adicionar pessoa ao mapa e obter a pessoa adicionada
+        pessoaLista.adicionarPessoaNoMapa(pessoaMapa);
+        Pessoa pessoaObtida = pessoaLista.obterPessoaDoMapa("321654987");
+        System.out.println("Pessoa obtida do mapa: " + pessoaObtida.getNome() + ", CPF: " + pessoaObtida.getCpf() + ", Idade: " + pessoaObtida.getIdade());
 
         // Ordenar em ordem crescente pelo nome
         List<Pessoa> pessoasCrescente = PessoaLista.ordenarPessoas(pessoasSemDuplicados, true);
         System.out.println("Ordenado em ordem crescente pelo nome:");
-        pessoasCrescente.forEac"h(p -> System.out.println(p.getNome() + ", Idade: " + p.getIdade()));
+        pessoasCrescente.forEach(p -> System.out.println(p.getNome() + ", Idade: " + p.getIdade()));
 
         // Ordenar em ordem decrescente pelo nome
         List<Pessoa> pessoasDecrescente = PessoaLista.ordenarPessoas(pessoasSemDuplicados, false);
@@ -49,13 +54,20 @@ public class Testes {
         }
     }
 
-    // Classe para utilidades relacionadas à pessoa
     static class PessoaLista {
         private Map<String, Pessoa> mapaPessoas = new HashMap<>();
 
         public void adicionarEImprimirPessoa(Pessoa pessoa) {
             mapaPessoas.put(pessoa.getCpf(), pessoa);
             System.out.println("Adicionando Pessoa: " + pessoa.getNome() + ", CPF: " + pessoa.getCpf() + ", Idade: " + pessoa.getIdade());
+        }
+
+        public void adicionarPessoaNoMapa(Pessoa pessoa) {
+            mapaPessoas.put(pessoa.getCpf(), pessoa);
+        }
+
+        public Pessoa obterPessoaDoMapa(String cpf) {
+            return mapaPessoas.get(cpf);
         }
 
         public static List<Pessoa> ordenarPessoas(List<Pessoa> lista, boolean crescente) {
@@ -70,4 +82,5 @@ public class Testes {
             }
         }
     }
+
 }
